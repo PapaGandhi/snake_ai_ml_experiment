@@ -9,17 +9,16 @@ public class Bait extends Position {
 	ArrayList<Position> validPos;
 	public Bait()
 	{
-		for(int i = 0; i < Position.NUM_SQUARES; i++)
-		{
-			for(int j = 0; j < Position.NUM_SQUARES; j++)
-			{
-				wholeGrid.add(new Position(i,j));
-			}
-		}
+		wholeGrid = new ArrayList<>();
+		validPos = new ArrayList<>();
+		initializeGrid();
 	}
 	
 	public Bait(ArrayList<Snake> snakeList)
 	{
+		wholeGrid = new ArrayList<>();
+		validPos = new ArrayList<>();
+		initializeGrid();
 		newPosition(snakeList);
 	}
 	
@@ -27,22 +26,25 @@ public class Bait extends Position {
 	public void newPosition(ArrayList<Snake> snakeList)
 	{
 		validPos.clear();
-		for(Snake snake : snakeList)
-		{
-			for(Position p : wholeGrid)
-			{
-				if( p != snake.getPosition())
-				{
-					validPos.add(p);
-				}
-			}
-		}
-		
+		validPos= (ArrayList<Position>) wholeGrid.clone();
+		validPos.removeAll(snakeList);
+
 //		this.xPos = ThreadLocalRandom.current().nextInt(0, Position.NUM_SQUARES - 1);
 //		this.yPos = ThreadLocalRandom.current().nextInt(0, Position.NUM_SQUARES - 1);
-		int listIndex = ThreadLocalRandom.current().nextInt(0, validPos.size());
+		int listIndex = ThreadLocalRandom.current().nextInt(0, validPos.size() - 1);
 		Position newPos = validPos.get(listIndex);
 		this.setPosition(newPos);
+	}
+	
+	public void initializeGrid()
+	{
+		for(int i = 0; i < Position.NUM_SQUARES; i++)
+		{
+			for(int j = 0; j < Position.NUM_SQUARES; j++)
+			{
+				wholeGrid.add(new Position(i,j));
+			}
+		}
 	}
 	
 	

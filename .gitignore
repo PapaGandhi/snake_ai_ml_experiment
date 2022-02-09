@@ -1,6 +1,6 @@
 .classpath
 .gitattributes
 .project
-.settings\*
-bin\*
+.settings\
+bin\
 src\snake\comments.txt

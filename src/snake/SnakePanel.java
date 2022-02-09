@@ -178,26 +178,38 @@ public class SnakePanel extends JPanel implements KeyListener {
 	
 	public boolean checkCollision()
 	{
+		
 		Snake head = snakeList.get(0);
+		
+		// Check Collision against width bounds
 		if(head.getxPos() * Position.xSpacing > Position.WIDTH ||
 				head.getxPos() * Position.xSpacing < 0)
 		{
 			return true;
 		}
 		
-		if(head.getyPos() * Position.ySpacing > Position.HEIGHT ||
+		// Check collision against height bounds
+		if((head.getyPos() + 2) * Position.ySpacing > Position.HEIGHT ||
 				head.getyPos() * Position.ySpacing < 0)
 		{
 			return true;
 		}
 		
-		if(head.getPosition() == bait.getPosition())
+		// Check collision against snake list
+		if(head.equals(snakeList))
 		{
-			Snake tailSnake = snakeList.get(snakeList.size());
-			snakeList.add(new Snake(tailSnake.oldPosition));
-			bait = new Bait();
+			return true;
 		}
 		
+		// Check collision against bait
+		if(head.getPosition().equals(bait.getPosition()))
+		{
+			System.out.println("Snake Bait Collision");
+			Snake tailSnake = snakeList.get(snakeList.size() - 1);
+			snakeList.add(new Snake(tailSnake.oldPosition));
+			bait = new Bait(snakeList);
+		}
+
 		return false;
 		
 		
