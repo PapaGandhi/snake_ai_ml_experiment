@@ -2,9 +2,14 @@ package snake;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+//import javax.management.timer.Timer;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 public class SnakeMain {
@@ -20,6 +25,7 @@ public class SnakeMain {
 			panel.setBorder(new LineBorder(Color.BLACK));
 			panel.setBackground(Color.GRAY.darker());
 			panel.setLayout(null);
+			startSnakeMoving(panel);
 			var frame = new JFrame();
 			frame.addKeyListener(panel);
 			frame.setSize(width,height);
@@ -29,6 +35,25 @@ public class SnakeMain {
 			frame.setLocationRelativeTo(null);
 			frame.getContentPane().add(panel, BorderLayout.CENTER);
 			frame.setVisible(true);
+		});
+	}
+	
+	
+	public static void startSnakeMoving(SnakePanel s)
+	{
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run()
+			{
+				ActionListener actionListener = new ActionListener() {
+					public void actionPerformed(ActionEvent actionEvent) {
+						s.moveSnake();
+					}
+				};
+				Timer timer = new Timer(300, actionListener);
+				timer.start();
+						
+			}
 		});
 	}
 }

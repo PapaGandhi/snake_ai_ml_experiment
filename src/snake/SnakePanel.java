@@ -2,10 +2,13 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.management.timer.Timer;
 import javax.swing.JPanel;
 
 public class SnakePanel extends JPanel implements KeyListener {
@@ -17,11 +20,13 @@ public class SnakePanel extends JPanel implements KeyListener {
 	public static int NUM_SQUARES = 25;
 	private int baitXPos = 0;
 	private int baitYPos = 0;
+	private int direction;
 	ArrayList<Snake> snakeList = new ArrayList<Snake>();
 	private Bait bait;
 	
 	public SnakePanel()
 	{
+		direction = KeyEvent.VK_RIGHT;
 		System.out.println("Height: " + getHeight());
 		System.out.println("Width: " + getWidth());
 		initializeSnakes();
@@ -30,6 +35,7 @@ public class SnakePanel extends JPanel implements KeyListener {
 	
 	public SnakePanel(int width,int height)
 	{
+		direction = KeyEvent.VK_RIGHT;
 		new Position(width,height,NUM_SQUARES);
 		initializeSnakes();
 		bait = new Bait(snakeList);
@@ -96,10 +102,53 @@ public class SnakePanel extends JPanel implements KeyListener {
 		}
 		
 	}
+	public void moveSnake()
+	{
+		moveSnake(direction);
+	}
+	
+	public void moveSnake(int keyCode)
+	{
+		boolean outOfBounds = false;
+		switch(keyCode)
+		{
+			case KeyEvent.VK_RIGHT:
+	            System.out.println("Right key pressed");
+	            outOfBounds = rightKeyPressed();
+	    		direction = keyCode;
+	            break;
+			case KeyEvent.VK_LEFT:
+	            System.out.println("Left key pressed");
+				outOfBounds = leftKeyPressed();
+				direction = keyCode;
+				break;
+			case KeyEvent.VK_DOWN:
+	            System.out.println("Down Key pressed");
+	            outOfBounds = downKeyPressed();
+	    		direction = keyCode;
+	            break;
+			case KeyEvent.VK_UP:
+	            System.out.println("Up key pressed");
+	            outOfBounds =  upKeyPressed();
+	    		direction = keyCode;
+	            break;
+	        default:
+	        	System.out.println("Invalid Key");
+	        	break;
+		}
+		
+		
+       if(outOfBounds)
+       {
+       	gameOver();
+       } 
+       repaint();
+	}
 	
 	public void gameOver()
 	{
 		System.out.println("Game Over");
+		direction = KeyEvent.VK_RIGHT;
     	resetGame();
 	}
 	
@@ -111,36 +160,7 @@ public class SnakePanel extends JPanel implements KeyListener {
 	
 	public void keyPressed(KeyEvent e)
 	{
-		 boolean outOfBounds = false;
-		switch(e.getKeyCode())
-		{
-			case KeyEvent.VK_RIGHT:
-	            System.out.println("Right key pressed");
-	            outOfBounds = rightKeyPressed();
-	            break;
-			case KeyEvent.VK_LEFT:
-	            System.out.println("Left key pressed");
-				outOfBounds = leftKeyPressed();
-				break;
-			case KeyEvent.VK_DOWN:
-	            System.out.println("Down Key pressed");
-	            outOfBounds = downKeyPressed();
-	            break;
-			case KeyEvent.VK_UP:
-	            System.out.println("Up key pressed");
-	            outOfBounds =  upKeyPressed();
-	            break;
-	        default:
-	        	System.out.println("Invalid Key");
-	        	break;
-
-		}
-		
-        if(outOfBounds)
-        {
-        	gameOver();
-        }
-        repaint();
+		moveSnake(e.getKeyCode());
 	}
 	
 	public boolean rightKeyPressed()

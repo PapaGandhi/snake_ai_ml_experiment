@@ -29,8 +29,6 @@ public class Bait extends Position {
 		validPos= (ArrayList<Position>) wholeGrid.clone();
 		validPos.removeAll(snakeList);
 
-//		this.xPos = ThreadLocalRandom.current().nextInt(0, Position.NUM_SQUARES - 1);
-//		this.yPos = ThreadLocalRandom.current().nextInt(0, Position.NUM_SQUARES - 1);
 		int listIndex = ThreadLocalRandom.current().nextInt(0, validPos.size() - 1);
 		Position newPos = validPos.get(listIndex);
 		this.setPosition(newPos);
