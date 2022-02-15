@@ -102,35 +102,27 @@ public class SnakePanel extends JPanel implements KeyListener {
 		}
 		
 	}
+
 	public void moveSnake()
 	{
-		moveSnake(direction);
-	}
-	
-	public void moveSnake(int keyCode)
-	{
 		boolean outOfBounds = false;
-		switch(keyCode)
+		switch(direction)
 		{
 			case KeyEvent.VK_RIGHT:
 	            System.out.println("Right key pressed");
 	            outOfBounds = rightKeyPressed();
-	    		direction = keyCode;
 	            break;
 			case KeyEvent.VK_LEFT:
 	            System.out.println("Left key pressed");
 				outOfBounds = leftKeyPressed();
-				direction = keyCode;
 				break;
 			case KeyEvent.VK_DOWN:
 	            System.out.println("Down Key pressed");
 	            outOfBounds = downKeyPressed();
-	    		direction = keyCode;
 	            break;
 			case KeyEvent.VK_UP:
 	            System.out.println("Up key pressed");
 	            outOfBounds =  upKeyPressed();
-	    		direction = keyCode;
 	            break;
 	        default:
 	        	System.out.println("Invalid Key");
@@ -160,7 +152,8 @@ public class SnakePanel extends JPanel implements KeyListener {
 	
 	public void keyPressed(KeyEvent e)
 	{
-		moveSnake(e.getKeyCode());
+		direction = e.getKeyCode();
+		//moveSnake(e.getKeyCode());
 	}
 	
 	public boolean rightKeyPressed()
