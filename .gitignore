@@ -2,6 +2,5 @@
 .gitattributes
 .project
 .settings\
-bin\
 bin/
 src\snake\comments.txt
