@@ -8,7 +8,7 @@ TODO
  
  AI/ML
  - Start entry level
-   - Path Finding Algorithm given position
+   - Path Finding Algorithm given position (maybe update later without position given? to increase complexity?)
  - Next steps
    - Self Collision Avoidance
  
