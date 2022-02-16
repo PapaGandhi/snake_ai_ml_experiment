@@ -2,24 +2,17 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import javax.management.timer.Timer;
 import javax.swing.JPanel;
 
 public class SnakePanel extends JPanel implements KeyListener {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	public static int NUM_SQUARES = 25;
-	private int baitXPos = 0;
-	private int baitYPos = 0;
+	public static int LINE_WIDTH = 2;
 	private int direction;
 	ArrayList<Snake> snakeList = new ArrayList<Snake>();
 	private Bait bait;
@@ -53,18 +46,18 @@ public class SnakePanel extends JPanel implements KeyListener {
 	public void paintVertLines(Graphics g)
 	{
 		g.setColor(Color.BLACK);
-		for (int xPos = Position.xSpacing; xPos < getWidth(); xPos += Position.xSpacing)
+		for (int xPos = 0; xPos < Position.HEIGHT; xPos += Position.SQUARE_SPACING)
 		{
-			g.fillRect(xPos, 0, 2, getHeight());
+			g.fillRect(xPos, 0, LINE_WIDTH, Position.HEIGHT);
 		}
 	}
 	
 	public void paintHorzLines(Graphics g)
 	{
 		g.setColor(Color.BLACK);
-		for (int yPos = Position.ySpacing; yPos < getWidth(); yPos += Position.ySpacing)
+		for (int yPos = 0; yPos < Position.WIDTH; yPos += Position.SQUARE_SPACING)
 		{
-			g.fillRect(0, yPos, getWidth(), 2);
+			g.fillRect(0, yPos, Position.WIDTH, LINE_WIDTH);
 		}
 	}
 	
@@ -73,7 +66,7 @@ public class SnakePanel extends JPanel implements KeyListener {
 		g.setColor(Color.RED);
 		int baitXPos = bait.getxPos();
 		int baitYPos = bait.getyPos();
-		g.fillRect(baitXPos * Position.xSpacing, baitYPos * Position.ySpacing, Position.xSpacing, Position.ySpacing);
+		g.fillRect(baitXPos * Position.SQUARE_SPACING + 2, baitYPos * Position.SQUARE_SPACING + 2 , Position.SQUARE_LENGTH, Position.SQUARE_LENGTH);
 	}
 	
 	public void initializeSnakes()
@@ -98,7 +91,8 @@ public class SnakePanel extends JPanel implements KeyListener {
 		for (Snake snakePiece : snakeList) {
 			int snakeXPos = snakePiece.getxPos();
 			int snakeYPos = snakePiece.getyPos();
-			g.fillRect(snakeXPos * Position.xSpacing, snakeYPos * Position.ySpacing, Position.xSpacing, Position.ySpacing);	
+			// Add two to position to account for first lines on the boundry
+			g.fillRect(snakeXPos * Position.SQUARE_SPACING + 2, snakeYPos * Position.SQUARE_SPACING + 2, Position.SQUARE_LENGTH, Position.SQUARE_LENGTH);	
 		}
 		
 	}
@@ -109,19 +103,19 @@ public class SnakePanel extends JPanel implements KeyListener {
 		switch(direction)
 		{
 			case KeyEvent.VK_RIGHT:
-	            System.out.println("Right key pressed");
+	            //System.out.println("Right key pressed");
 	            outOfBounds = rightKeyPressed();
 	            break;
 			case KeyEvent.VK_LEFT:
-	            System.out.println("Left key pressed");
+	            //System.out.println("Left key pressed");
 				outOfBounds = leftKeyPressed();
 				break;
 			case KeyEvent.VK_DOWN:
-	            System.out.println("Down Key pressed");
+	            //System.out.println("Down Key pressed");
 	            outOfBounds = downKeyPressed();
 	            break;
 			case KeyEvent.VK_UP:
-	            System.out.println("Up key pressed");
+	            //System.out.println("Up key pressed");
 	            outOfBounds =  upKeyPressed();
 	            break;
 	        default:
@@ -195,15 +189,15 @@ public class SnakePanel extends JPanel implements KeyListener {
 		Snake head = snakeList.get(0);
 		
 		// Check Collision against width bounds
-		if(head.getxPos() * Position.xSpacing > Position.WIDTH ||
-				head.getxPos() * Position.xSpacing < 0)
+		if(head.getxPos() * Position.SQUARE_SPACING + (2 * Position.LINE_WIDTH) >= Position.WIDTH ||
+				head.getxPos() * Position.SQUARE_SPACING < 0)
 		{
 			return true;
 		}
 		
 		// Check collision against height bounds
-		if((head.getyPos() + 2) * Position.ySpacing > Position.HEIGHT ||
-				head.getyPos() * Position.ySpacing < 0)
+		if(head.getyPos() * Position.SQUARE_SPACING + (2 * Position.LINE_WIDTH) >= Position.HEIGHT ||
+				head.getyPos() * Position.SQUARE_SPACING < 0)
 		{
 			return true;
 		}

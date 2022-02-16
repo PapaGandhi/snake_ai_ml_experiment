@@ -14,12 +14,14 @@ import javax.swing.border.LineBorder;
 
 public class SnakeMain {
 
+	public static int WINDOWS_X_PADDING = 13;
+	public static int WINDOWS_Y_PADDING = 36; 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("This is the way");
 		System.out.println("This is the way 2");
-		int width = 600;
-		int height = 600;
+		int width = 654;
+		int height = 654;
 		SwingUtilities.invokeLater(() ->  {
 			var panel = new SnakePanel(width,height);
 			panel.setBorder(new LineBorder(Color.BLACK));
@@ -28,7 +30,7 @@ public class SnakeMain {
 			startSnakeMoving(panel);
 			var frame = new JFrame();
 			frame.addKeyListener(panel);
-			frame.setSize(width,height);
+			frame.setSize(width + WINDOWS_X_PADDING,height + WINDOWS_Y_PADDING);
 //			frame.add(panel, new GridBagConstraints());
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setTitle("Snake Panel");

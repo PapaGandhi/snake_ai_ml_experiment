@@ -3,8 +3,6 @@
 
 
 TODO
- - Add better math to boundaries of the map.
-   - Its worth noting that math, and english, are both hard. Do or do not, there is no try;
  
  AI/ML
  - Start entry level

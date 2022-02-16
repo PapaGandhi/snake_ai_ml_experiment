@@ -1,15 +1,19 @@
 package snake;
 
+
 public class Position {
 
+	public static int LINE_WIDTH = 2;
+	
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static int NUM_SQUARES;
-	public static int xSpacing;
-	public static int ySpacing;
+	public static int SQUARE_SPACING;
+	public static int SQUARE_LENGTH;
 	protected int xPos;
 	protected int yPos;
 	protected Position oldPosition;
+	
 	
 	
 	public Position() 
@@ -42,11 +46,20 @@ public class Position {
 	
 	public void initialize(int width, int height, int numSquares)
 	{
-		Position.WIDTH = width;
-		Position.HEIGHT = height;
-		Position.NUM_SQUARES = numSquares;
-		xSpacing = WIDTH / NUM_SQUARES;
-		ySpacing = HEIGHT / NUM_SQUARES;
+		if(width == height) {
+			Position.WIDTH = width;
+			Position.HEIGHT = height;
+			Position.NUM_SQUARES = numSquares;
+			int lineWidths = Position.LINE_WIDTH * (Position.NUM_SQUARES + 1);
+			int squareLengthTotals = width - lineWidths;
+			Position.SQUARE_LENGTH = squareLengthTotals / numSquares;
+			Position.SQUARE_SPACING = HEIGHT / NUM_SQUARES;
+		} else {
+			// Current limitations
+			System.out.println("Can't have mismatched height and width");
+			System.exit(1);
+		}
+		
 	}
 	
 	public Position getPosition()
