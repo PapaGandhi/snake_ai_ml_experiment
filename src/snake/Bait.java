@@ -23,6 +23,7 @@ public class Bait extends Position {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public void newPosition(ArrayList<Snake> snakeList)
 	{
 		validPos.clear();
