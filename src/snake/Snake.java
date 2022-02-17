@@ -2,6 +2,8 @@ package snake;
 
 import java.util.ArrayList;
 
+import utils.Position;
+
 public class Snake extends Position {
 	
 	Position pos[];

@@ -1,4 +1,4 @@
-package snake;
+package utils;
 
 
 public class Position {
@@ -13,8 +13,6 @@ public class Position {
 	protected int xPos;
 	protected int yPos;
 	protected Position oldPosition;
-	
-	
 	
 	public Position() 
 	{

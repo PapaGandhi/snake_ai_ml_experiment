@@ -3,6 +3,8 @@ package snake;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import utils.Position;
+
 public class Bait extends Position {
 	
 	ArrayList<Position> wholeGrid;

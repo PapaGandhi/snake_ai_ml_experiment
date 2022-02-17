@@ -1,12 +1,17 @@
-package snake;
+package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import utils.Pair;
+import utils.Position;
 
 import javax.swing.JPanel;
+
+import snake.Bait;
+import snake.Snake;
 
 public class SnakePanel extends JPanel implements KeyListener {
 
@@ -131,6 +136,11 @@ public class SnakePanel extends JPanel implements KeyListener {
        repaint();
 	}
 	
+	public Pair<Integer,ArrayList<Snake>> getSnake()
+	{
+		return new Pair<Integer, ArrayList<Snake>>(direction,snakeList);
+	}
+	
 	public void gameOver()
 	{
 		System.out.println("Game Over");
@@ -213,7 +223,7 @@ public class SnakePanel extends JPanel implements KeyListener {
 		{
 			System.out.println("Snake Bait Collision");
 			Snake tailSnake = snakeList.get(snakeList.size() - 1);
-			snakeList.add(new Snake(tailSnake.oldPosition));
+			snakeList.add(new Snake(tailSnake.getOldPosition()));
 			bait = new Bait(snakeList);
 		}
 
