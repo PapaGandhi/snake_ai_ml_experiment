@@ -7,6 +7,7 @@ TODO
  AI/ML
  - Start entry level
    - Path Finding Algorithm given position (maybe update later without position given? to increase complexity?)
+   - Algorithm should be called before move is called to update Direction.
  - Next steps
    - Self Collision Avoidance
  
