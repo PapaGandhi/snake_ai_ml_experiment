@@ -141,6 +141,11 @@ public class SnakePanel extends JPanel implements KeyListener {
 		return new Pair<Integer, ArrayList<Snake>>(direction,snakeList);
 	}
 	
+	public Bait getBait()
+	{
+		return bait;
+	}
+	
 	public void gameOver()
 	{
 		System.out.println("Game Over");
@@ -158,6 +163,11 @@ public class SnakePanel extends JPanel implements KeyListener {
 	{
 		direction = e.getKeyCode();
 		//moveSnake(e.getKeyCode());
+	}
+	
+	public void setDirection(int direction)
+	{
+		this.direction = direction;
 	}
 	
 	public boolean rightKeyPressed()
